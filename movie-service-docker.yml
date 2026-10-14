@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: ${MOVIE_DB_URL}
+    username: ${MOVIE_DB_USERNAME}
+    password: ${MOVIE_DB_PASSWORD}

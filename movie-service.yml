@@ -1,0 +1,24 @@
+server:
+  port: ${MOVIE_PORT:51100}
+spring:
+  application:
+    name: movie-service
+  flyway:
+    enabled: true
+    locations:
+      - classpath:db/migration
+  jpa:
+    hibernate:
+      ddl-auto: none
+    generate-ddl: off
+    show-sql: false
+    database: postgresql
+  datasource:
+    url: ${MOVIE_DB_URL:jdbc:postgresql://localhost:5432/moviedb}
+    username: root
+    password: 1134
+    driver-class-name: org.postgresql.Driver
+springdoc:
+  swagger-ui:
+    path: /api/v1/swagger-ui.html
+
