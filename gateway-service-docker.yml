@@ -2,3 +2,11 @@ gateway:
   downstream:
     movie-uri: ${GATEWAY_MOVIE_URI:http://movie-service:51100}
     booking-uri: ${GATEWAY_BOOKING_URI:http://booking-service:51200}
+    auth-uri: ${GATEWAY_AUTH_URI:http://auth-service:50003}
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${AUTH_JWKS_URI:http://auth-service:50003/oauth2/jwks}

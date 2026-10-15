@@ -1,0 +1,17 @@
+server:
+  port: ${AUTH_PORT:50003}
+  shutdown: graceful
+
+auth:
+  jwt:
+    issuer: ${AUTH_JWT_ISSUER:http://localhost:50003}
+    access-token-ttl: ${AUTH_JWT_ACCESS_TTL_SECONDS:3600}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  endpoint:
+    health:
+      show-details: always

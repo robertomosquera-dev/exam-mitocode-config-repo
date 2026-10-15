@@ -5,13 +5,24 @@ gateway:
   downstream:
     movie-uri: ${GATEWAY_MOVIE_URI:http://localhost:51100}
     booking-uri: ${GATEWAY_BOOKING_URI:http://localhost:51200}
+    auth-uri: ${GATEWAY_AUTH_URI:http://localhost:50003}
 
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${AUTH_JWT_ISSUER:http://localhost:50003}
+          jwk-set-uri: ${AUTH_JWKS_URI:http://localhost:50003/oauth2/jwks}
   cloud:
     gateway:
       server:
         webflux:
           routes:
+            - id: auth-service
+              uri: ${gateway.downstream.auth-uri}
+              predicates:
+                - Path=/api/v1/auth/**,/oauth2/jwks
             - id: movie-service
               uri: ${gateway.downstream.movie-uri}
               predicates:
