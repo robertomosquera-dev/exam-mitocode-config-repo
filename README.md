@@ -13,4 +13,6 @@ Variables necesarias para PostgreSQL:
 
 Variables opcionales: `MOVIE_PORT` (51100), `BOOKING_PORT` (51200), `GATEWAY_PORT` (8080), `MOVIE_SERVICE_INSTANCE_URL` (instancia que Booking usa mediante LoadBalancer), `GATEWAY_MOVIE_URI` y `GATEWAY_BOOKING_URI` (destinos del Gateway). Los perfiles Docker usan los nombres de servicio `movie-service` y `booking-service` como valores predeterminados.
 
+Booking revisa cada minuto las reservas `PENDING` con más de 10 minutos, las cancela y solicita a Movie liberar el asiento por `bookingId`. Se puede ajustar con `BOOKING_RECOVERY_INITIAL_DELAY_MS`, `BOOKING_RECOVERY_INTERVAL_MS` y `BOOKING_RECOVERY_STALE_AFTER_MS`. Si PostgreSQL sigue caído, la revisión se reintenta en el siguiente ciclo; no se puede garantizar la cancelación mientras la base esté indisponible. Una liberación remota fallida queda registrada para seguimiento operativo.
+
 El Config Server del proyecto apunta normalmente al repositorio GitHub. Los cambios locales de este repositorio deben publicarse allí para que ese servidor los sirva. Para probar el repositorio local sin publicarlo, arranca Config Server con el perfil `native` y `spring.cloud.config.server.native.search-locations=file:/home/rob/projects/exam-mitocode-config-repo`.

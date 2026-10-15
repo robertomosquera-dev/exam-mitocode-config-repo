@@ -25,6 +25,12 @@ spring:
 movie-service:
   base-url: http://movie-service/api/v1
 
+booking:
+  recovery:
+    initial-delay-ms: ${BOOKING_RECOVERY_INITIAL_DELAY_MS:60000}
+    interval-ms: ${BOOKING_RECOVERY_INTERVAL_MS:60000}
+    stale-after-ms: ${BOOKING_RECOVERY_STALE_AFTER_MS:600000}
+
 resilience4j:
   retry:
     instances:
