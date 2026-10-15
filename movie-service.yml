@@ -2,6 +2,12 @@ server:
   port: ${MOVIE_PORT:51100}
 
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${AUTH_JWT_ISSUER:http://localhost:50003}
+          jwk-set-uri: ${AUTH_JWKS_URI:http://localhost:50003/oauth2/jwks}
   flyway:
     enabled: true
     locations:

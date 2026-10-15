@@ -2,6 +2,12 @@ server:
   port: ${BOOKING_PORT:51200}
 
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${AUTH_JWT_ISSUER:http://localhost:50003}
+          jwk-set-uri: ${AUTH_JWKS_URI:http://localhost:50003/oauth2/jwks}
   datasource:
     url: ${BOOKING_DB_URL:jdbc:postgresql://localhost:5432/bookingdb}
     username: ${BOOKING_DB_USERNAME:root}

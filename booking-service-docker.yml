@@ -1,4 +1,9 @@
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${AUTH_JWKS_URI:http://auth-service:50003/oauth2/jwks}
   datasource:
     url: ${BOOKING_DB_URL}
     username: ${BOOKING_DB_USERNAME}
