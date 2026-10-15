@@ -1,0 +1,47 @@
+server:
+  port: ${GATEWAY_PORT:8080}
+
+gateway:
+  downstream:
+    movie-uri: ${GATEWAY_MOVIE_URI:http://localhost:51100}
+    booking-uri: ${GATEWAY_BOOKING_URI:http://localhost:51200}
+
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: movie-service
+              uri: ${gateway.downstream.movie-uri}
+              predicates:
+                - Path=/api/v1/movies/**,/api/v1/screenings/**
+            - id: booking-service
+              uri: ${gateway.downstream.booking-uri}
+              predicates:
+                - Path=/api/v1/bookings,/api/v1/bookings/**
+            - id: movie-docs
+              uri: ${gateway.downstream.movie-uri}
+              predicates:
+                - Path=/movie-service/v3/api-docs/**
+              filters:
+                - RewritePath=/movie-service/(?<path>.*), /$\{path}
+            - id: booking-docs
+              uri: ${gateway.downstream.booking-uri}
+              predicates:
+                - Path=/booking-service/v3/api-docs/**
+              filters:
+                - RewritePath=/booking-service/(?<path>.*), /$\{path}
+
+springdoc:
+  swagger-ui:
+    path: /swagger
+    urls:
+      - name: Movie Service API
+        url: /movie-service/v3/api-docs
+        displayName: Movie Service
+      - name: Booking Service API
+        url: /booking-service/v3/api-docs
+        displayName: Booking Service
+  api-docs:
+    enabled: true

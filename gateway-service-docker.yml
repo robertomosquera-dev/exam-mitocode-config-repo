@@ -1,0 +1,4 @@
+gateway:
+  downstream:
+    movie-uri: ${GATEWAY_MOVIE_URI:http://movie-service:51100}
+    booking-uri: ${GATEWAY_BOOKING_URI:http://booking-service:51200}

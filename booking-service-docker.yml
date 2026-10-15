@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: ${BOOKING_DB_URL}
+    username: ${BOOKING_DB_USERNAME}
+    password: ${BOOKING_DB_PASSWORD}
+  cloud:
+    discovery:
+      client:
+        simple:
+          instances:
+            movie-service:
+              - uri: ${MOVIE_SERVICE_INSTANCE_URL:http://movie-service:51100}
