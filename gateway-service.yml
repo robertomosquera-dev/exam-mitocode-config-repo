@@ -31,6 +31,12 @@ spring:
               uri: ${gateway.downstream.booking-uri}
               predicates:
                 - Path=/api/v1/bookings,/api/v1/bookings/**
+            - id: auth-docs
+              uri: ${gateway.downstream.auth-uri}
+              predicates:
+                - Path=/auth-service/v3/api-docs/**
+              filters:
+                - RewritePath=/auth-service/(?<path>.*), /$\{path}
             - id: movie-docs
               uri: ${gateway.downstream.movie-uri}
               predicates:
@@ -48,6 +54,9 @@ springdoc:
   swagger-ui:
     path: /swagger
     urls:
+      - name: Auth Service API
+        url: /auth-service/v3/api-docs
+        displayName: Auth Service
       - name: Movie Service API
         url: /movie-service/v3/api-docs
         displayName: Movie Service
