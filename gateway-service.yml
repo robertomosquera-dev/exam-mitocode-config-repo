@@ -31,6 +31,18 @@ spring:
               uri: ${gateway.downstream.booking-uri}
               predicates:
                 - Path=/api/v1/bookings,/api/v1/bookings/**
+            - id: movie-health
+              uri: ${gateway.downstream.movie-uri}
+              predicates:
+                - Path=/movie-service/actuator/health
+              filters:
+                - SetPath=/actuator/health
+            - id: booking-health
+              uri: ${gateway.downstream.booking-uri}
+              predicates:
+                - Path=/booking-service/actuator/health
+              filters:
+                - SetPath=/actuator/health
             - id: auth-docs
               uri: ${gateway.downstream.auth-uri}
               predicates:
